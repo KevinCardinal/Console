@@ -95,11 +95,13 @@ public class JFrameConsole extends JFrame {
 		text.setEditable(false);
 		text.setBackground(background);
 		text.setForeground(foreground);
+		text.grabFocus();
 		
 		JScrollPane textpane = new JScrollPane(text);
 		textpane.setVerticalScrollBarPolicy(ScrollPaneConstants.VERTICAL_SCROLLBAR_ALWAYS);
 		
 		prompt = new JTextField("");
+		prompt.setEditable(false);
 		south.add(prompt, BorderLayout.CENTER);
 		prompt.addKeyListener(new KeyListenerConsole(this));
 		
