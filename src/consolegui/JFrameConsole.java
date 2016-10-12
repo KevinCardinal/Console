@@ -1,7 +1,5 @@
 package consolegui;
 
-/* yolo */
-
 import java.awt.BorderLayout;
 import java.awt.Color;
 import java.awt.Dimension;
@@ -26,7 +24,6 @@ public class JFrameConsole extends JFrame {
 	JTextPane text;
 	JTextField prompt;
 	JTextField mark;
-	boolean finish;
 	MutableAttributeSet attribute;
 	Color currentColor;
 	
@@ -70,14 +67,8 @@ public class JFrameConsole extends JFrame {
 		init("Console - " + title, width, height, foreground, background);
 	}
 	
-	public void notify_finish()
-	{
-		finish = true;
-	}
-	
 	private void init(String title, int width, int height, Color foreground, Color background)
 	{
-		finish = false;
 		attribute = new SimpleAttributeSet();
 		currentColor = foreground;
 		
@@ -186,16 +177,14 @@ public class JFrameConsole extends JFrame {
 		prompt.setEditable(true);
 		prompt.grabFocus();
 		mark.setForeground(Color.GREEN);
-		finish = false;
-		while(!finish)
+		synchronized(this)
 		{
-			try {Thread.sleep(100);}
-			catch(InterruptedException e) {}
+			try { this.wait(); }
+			catch(InterruptedException e) { e.printStackTrace(); }
 		}
 		String res = prompt.getText();
 		if(display) { println(res, c); }
 		prompt.setText("");
-		finish = false;
 		mark.setForeground(Color.RED);
 		prompt.setEditable(false);
 		text.grabFocus();
@@ -228,5 +217,10 @@ public class JFrameConsole extends JFrame {
 	public void setTextColor(Color c)
 	{
 		currentColor = c;
+	}
+	
+	public boolean isPromptActive()
+	{
+		return prompt.isEditable();
 	}
 }
