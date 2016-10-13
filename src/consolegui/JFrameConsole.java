@@ -70,6 +70,7 @@ public class JFrameConsole extends JFrame {
 	private void init(String title, int width, int height, Color foreground, Color background)
 	{
 		attribute = new SimpleAttributeSet();
+		StyleConstants.setFontFamily(attribute, "Courier New");
 		currentColor = foreground;
 		
 		setTitle(title);
