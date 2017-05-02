@@ -205,6 +205,21 @@ public class JFrameConsole extends JFrame {
         return res;
 	}
 	
+	public void clean()
+	{
+		try
+		{
+			StyledDocument doc = text.getStyledDocument();
+			doc.remove(0, doc.getLength());
+			text.setCaretPosition(0);
+		}
+		catch(BadLocationException e)
+		{
+			System.err.println("Console clean error :");
+			e.printStackTrace();
+		}
+	}
+	
 	public String back_and_write(int i, String s) throws BadLocationException
 	{
 		return back_and_write(i, s, currentColor);

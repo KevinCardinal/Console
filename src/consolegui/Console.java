@@ -103,4 +103,5 @@ public final class Console {
 	
 	public static void setTextColor(Color c) { frame.setTextColor(c); }
 	
+	public static void clean() { frame.clean(); }
 }
